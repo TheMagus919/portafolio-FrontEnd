@@ -12,7 +12,7 @@
         </div>
         <ul class="listaDeItems" style="list-style-type: none;">
             <li *ngFor="let habilidad of habilidadesList">
-                <div class="row" [id]="habilidad.id">
+                <div class="row" [id]="habilidad.idHabilidades">
                     <div class="col-sm-2">
         
                     </div>
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <button type="button" class="btn" (click)="llenarEditarHab(habilidad.id)" *ngIf="authService.logIn">
+                        <button type="button" class="btn" (click)="llenarEditarHab(habilidad.idHabilidades)" *ngIf="authService.logIn">
                             <img src="./assets/imagenes/editar.png" class="imgeditar">
                         </button>
                         <button type="button" class="btn" (click)="borrarHab(habilidad)" *ngIf="authService.logIn">

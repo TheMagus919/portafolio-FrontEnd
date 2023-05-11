@@ -16,14 +16,17 @@ export class BannerComponent implements OnInit{
   }
 
   refreshPeople() {
-    this.datosPortafolio.obtenerDatos()
+    this.datosPortafolio.obtenerDatosPerfil()
       .subscribe(data => {
-        this.miPerfil=data.perfil;
-        this.foto= data.fotoperfil;
+        this.miPerfil=data;
+        this.foto= data.foto;
       })      
   }
 
-  llenarEditarEducacion(){
+  llenarEditarPerfil(){
+    $("#editNombrePerfil").val(this.miPerfil.nombre);
+    $("#editProfesionPerfil").val(this.miPerfil.profesion);
+    $("#editCiudadPerfil").val(this.miPerfil.ciudad);
   $('#editInfoPerfilModal').modal('show');
 }
 }

@@ -15,24 +15,31 @@ export class ExperienciaComponent implements OnInit{
   }
 
   refreshPeople() {
-    this.datosPortafolio.obtenerDatos()
+    this.datosPortafolio.obtenerDatosExperiencias()
       .subscribe(data => {
-        this.experienciaList=data.experiencias;
+        this.experienciaList=data;
       })      
   }
 
   llenarEditarExperiencia(id:string){
-    var contenedor = this.experienciaList.filter((data: { id: string; }) => data.id == id);
+    var contenedor = this.experienciaList.filter((data: { idExperiencias: string; }) => data.idExperiencias == id);
     var asignador = document.getElementById("editExpId");
+    var ocupa = contenedor[0].puesto;
+    var local = contenedor[0].local;
+    var ciudad = contenedor[0].ciudad;
+    var fecha = contenedor[0].fecha;
     asignador!.textContent = id;
-    //document.querySelector("input#editInstitucionEducacion")?.setAttribute("value", institucion);
-    //document.querySelector("input#editCarreraEducacion")?.setAttribute("value", carrera);
-  $('#editarExperienciaModal').modal('show');
+    $("#editOcupacionExperiencia").val(ocupa);
+    $("#editLocalExperiencia").val(local);
+    $("#editCiudadExperiencia").val(ciudad);
+    $("#editFechaExperiencia").val(fecha);
+    $('#editarExperienciaModal').modal('show');
 }
 
 
 borrarExperiencia(data:any){
-    const url = `http://localhost:3000/experiencias/${data.id}`;
+    const url = `https://portafolio-backend-rb21.onrender.com/experiencias/eliminar/${data.idExperiencias}`;
     this.datosPortafolio.eliminarExp(url, data).subscribe();
+    location.reload();
 }
 }

@@ -52,9 +52,7 @@ export class ModalProyectosComponent {
   get DescripcionAg(){
     return this.formAg.get("descripcionAg");
   }
-  get PaginaAg(){
-    return this.formAg.get("paginaAg");
-  }
+
   get NombreEd(){
     return this.formEd.get("nombreEd");
   }
@@ -76,39 +74,15 @@ export class ModalProyectosComponent {
   get DescripcionAgValid() {
     return this.DescripcionAg?.touched && !this.DescripcionAg?.valid
   }
-  get PaginaAgValid() {
-    return this.PaginaAg?.touched && !this.PaginaAg?.valid
-  }
-
-  get NombreEdValid() {
-    return this.NombreEd?.touched && !this.NombreEd?.valid
-  }
-  get UrlEdValid() {
-    return this.UrlEd?.touched && !this.UrlEd?.valid
-  }
-  get DescripcionEdValid() {
-    return this.DescripcionEd?.touched && !this.DescripcionEd?.valid
-  }
-  get PaginaEdValid() {
-    return this.PaginaEd?.touched && !this.PaginaEd?.valid
-  }
 
   refreshPeople() {
-    this.datosPortafolio.obtenerDatos()
+    this.datosPortafolio.obtenerDatosProyectos()
       .subscribe(data => {
-        this.proyectosList=data.proyectos;
+        this.proyectosList=data;
       })      
   }
 
   agregarProyecto(){
-    //busco el ultimo id y lo configuro
-    var ultimo = this.proyectosList[this.proyectosList.length-1];
-    var idd = ultimo.id;
-    var palabra = idd.split("-");
-    var numero = parseInt(palabra[1]);
-    numero = numero + 1;
-    var nuevoId = palabra[0]+ "-" + numero;
-
     //GUARDO VALORES
     this.nombreAg = this.formAg.value.nombreAg;
     this.urlAg = this.formAg.value.urlAg;
@@ -119,14 +93,18 @@ export class ModalProyectosComponent {
       this.paginaAg= "";
     }
 
-    //CREO EL ITEM Y LO AGREGO
-    var items = { "id":nuevoId, "titulo":this.nombreAg, "descripcion":this.descripcionAg, "url":this.urlAg, "pagina":this.paginaAg }
+    //SI ES VALIDO CREO EL ITEM Y LO AGREGO
+    if(this.NombreAg?.value.length > 0 && this.UrlAg?.value.length > 0 && this.DescripcionAg?.value.length > 0 && !this.NombreAgValid && !this.DescripcionAgValid && !this.UrlAgValid){
+    var items = { "titulo":this.nombreAg, "descripcion":this.descripcionAg, "url":this.urlAg, "pagina":this.paginaAg }
     this.datosPortafolio.agregarPro(items).subscribe();
     this.proyectosComponent.refreshPeople();
     alert("Se Agrego Correctamente.")
     $(".modal-body input").val('');
     $('#proyectosModal').modal('hide');
-    //location.reload();
+    location.reload();
+    }else {
+      alert("Porfavor ingresar datos.");
+    }
   }
 
   editarProyecto(){
@@ -137,19 +115,40 @@ export class ModalProyectosComponent {
     this.descripcionEd = this.formEd.value.descripcionEd;
     this.paginaEd = this.formEd.value.paginaEd;
 
+    //SI LOS VALORES SIGUEN POR DEFECTO LOS ASGINO OTRA VEZ
+    if(this.NombreEd?.value.length == 0){
+      var nombre = $("#editNombreProyecto").val();
+      this.nombreEd = <string>nombre;
+    }
+    if(this.UrlEd?.value.length == 0){
+      var url = $("#editUrlProyecto").val();
+      this.urlEd = <string>url;
+    }
+    if(this.DescripcionEd?.value.length == 0){
+      var descripcion = $("#editDescripionProyecto").val();
+      this.descripcionEd = <string>descripcion;
+    }
+
     if(this.paginaEd == "" || this.paginaEd == null){
       this.paginaEd= "";
+    } else if(this.PaginaEd?.value.length == 0){
+      var pagina = $("#editPaginaProyecto").val();
+      this.paginaEd = <string>pagina;
     }
 
     //CREO EL ITEM Y LO AGREGO
-    var items = { "id":id, "titulo":this.nombreEd, "descripcion":this.descripcionEd, "url":this.urlEd, "pagina":this.paginaEd }
-    const url = `http://localhost:3000/proyectos/${id}`;
+    if(this.nombreEd.length>0 &&this.urlEd.length>0 && this.descripcionEd.length>0){
+    var items = { "idProyectos":id, "titulo":this.nombreEd, "descripcion":this.descripcionEd, "url":this.urlEd, "pagina":this.paginaEd }
+    const url = `https://portafolio-backend-rb21.onrender.com/proyectos/editar`;
     this.datosPortafolio.editarPro(url, items).subscribe();
     alert("Se Edito Correctamente.")
     $(".modal-body input").val('');
     var asd = document.getElementById("editProId");
     asd!.textContent = "";
     $('#editarProyectoModal').modal('hide');
-    //location.reload();
+    location.reload();
+    }else {
+      alert("Porfavor ingresar datos.");
+    }
   }
 }

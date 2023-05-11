@@ -15,14 +15,22 @@ export class ProyectosComponent implements OnInit{
   }
 
   refreshPeople() {
-    this.datosPortafolio.obtenerDatos()
+    this.datosPortafolio.obtenerDatosProyectos()
       .subscribe(data => {
-        this.proyectosList=data.proyectos;
+        this.proyectosList=data;
       })      
   }
 
   llenarEditarProyectos(id:string){
-    var contenedor = this.proyectosList.filter((data: { id: string; }) => data.id == id);
+    var contenedor = this.proyectosList.filter((data: { idProyectos: string; }) => data.idProyectos == id);
+    var nombre = contenedor[0].titulo;
+    var url = contenedor[0].url;
+    var pagina = contenedor[0].pagina;
+    var descripcion = contenedor[0].descripcion;
+    $("#editNombreProyecto").val(nombre);
+    $("#editUrlProyecto").val(url);
+    $("#editPaginaProyecto").val(pagina);
+    $("#editDescripionProyecto").val(descripcion);
     var asignador = document.getElementById("editProId");
     asignador!.textContent = id;
   $('#editarProyectoModal').modal('show');
@@ -30,7 +38,8 @@ export class ProyectosComponent implements OnInit{
 
 
 borrarProyecto(data:any){
-    const url = `http://localhost:3000/proyectos/${data.id}`;
+    const url = `https://portafolio-backend-rb21.onrender.com/proyectos/eliminar/${data.idProyectos}`;
     this.datosPortafolio.eliminarPro(url, data).subscribe();
+    location.reload();
 }
 }

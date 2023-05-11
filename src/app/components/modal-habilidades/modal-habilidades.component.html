@@ -9,11 +9,11 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="nombreHab" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" aria-describedby="nombreHab" placeholder="Ingresar un Nombre." formControlName="nombreAg" [class.border-danger]="NombreAgValid">
+                        <input type="text" class="form-control" aria-describedby="nombreHab" placeholder="Ingresar un Nombre." formControlName="nombreAg" [class.border-danger]="NombreAgValid" required>
                     </div>
                     <div class="mb-3">
                         <label for="porcentajeHab" class="form-label">Porcentaje</label>
-                        <select class="form-select" aria-label="Seleccionar Porcentaje" formControlName="porcentajeAg" [class.border-danger]="PorcentajeAgValid" placeholder="Seleccionar un porcentaje.">
+                        <select class="form-select" aria-label="Seleccionar Porcentaje" formControlName="porcentajeAg" [class.border-danger]="PorcentajeAgValid" placeholder="Seleccionar un porcentaje." required>
                             <option value="25">25%</option>
                             <option value="50">50%</option>
                             <option value="75">75%</option>
@@ -41,7 +41,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="editNombreHab" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="editNombreHab" aria-describedby="editNombreHab" formControlName="nombreEd" [class.border-danger]="NombreEdValid">
+                        <input type="text" class="form-control" id="editNombreHab" aria-describedby="editNombreHab" formControlName="nombreEd">
                     </div>
                     <div class="mb-3">
                         <label for="editPorcentajeHab" class="form-label">Porcentaje</label>

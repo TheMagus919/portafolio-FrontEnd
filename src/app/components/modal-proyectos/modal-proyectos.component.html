@@ -17,7 +17,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="paginaProyecto" class="form-label">Pagina</label>
-                        <input type="text" class="form-control" aria-describedby="paginaProyecto" formControlName="paginaAg" [class.border-danger]="PaginaAgValid">
+                        <input type="text" class="form-control" aria-describedby="paginaProyecto" formControlName="paginaAg">
                     </div>
                     <div class="mb-3">
                         <span class="input-group-text">Descripción</span>
@@ -44,19 +44,19 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="editNombreProyecto" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" aria-describedby="editNombreProyecto" formControlName="nombreEd" [class.border-danger]="NombreEdValid">
+                        <input type="text" class="form-control" id="editNombreProyecto" aria-describedby="editNombreProyecto" formControlName="nombreEd">
                     </div>
                     <div class="mb-3">
                         <label for="editUrlProyecto" class="form-label">URL</label>
-                        <input type="text" class="form-control" aria-describedby="editUrlProyecto" formControlName="urlEd" [class.border-danger]="UrlEdValid">
+                        <input type="text" class="form-control" id="editUrlProyecto" aria-describedby="editUrlProyecto" formControlName="urlEd">
                     </div>
                     <div class="mb-3">
                         <label for="editPaginaProyecto" class="form-label">Pagina</label>
-                        <input type="text" class="form-control" aria-describedby="editPaginaProyecto" formControlName="paginaEd" [class.border-danger]="PaginaEdValid">
+                        <input type="text" class="form-control" id="editPaginaProyecto" aria-describedby="editPaginaProyecto" formControlName="paginaEd">
                     </div>
                     <div class="mb-3">
                         <span class="input-group-text">Descripción</span>
-                        <textarea class="form-control" aria-label="With textarea" formControlName="descripcionEd" [class.border-danger]="DescripcionEdValid"></textarea>
+                        <textarea class="form-control" id="editDescripionProyecto" aria-label="With textarea" formControlName="descripcionEd"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

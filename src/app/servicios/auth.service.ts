@@ -1,24 +1,38 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  url = 'http://localhost:5000/api';
+  url = 'https://portafolio-backend-rb21.onrender.com/login';
   token: any;
   constructor(private http: HttpClient) { }
 
-  login(user: string, password: string){
-    this.http.post(this.url+ '/authenticate', {user: user, password: password}).subscribe(
-    (resp:any) => {
-      localStorage.setItem('auth_token', resp.token);
+  async login(user: string, password: string) {
+    let datos = { "user":user, "password": password };
+    const request = await fetch(this.url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datos)
+    });
+  
+    const respuesta = await request.text();
+    if (respuesta != 'FAIL') {
+      localStorage.setItem('auth_token', respuesta);
       $('#loginModal').modal('hide');
-    },
-    (err) => {
-      console.log(err);
-      alert("Usuario no valido.")
-    });;
+    } else {
+      alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
+    }
+  
   }
 
   pregunta(){

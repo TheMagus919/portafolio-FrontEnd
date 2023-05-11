@@ -48,9 +48,6 @@ export class ModalHabilidadesComponent {
   get PorcentajeAgValid() {
     return this.PorcentajeAg?.touched && !this.PorcentajeAg?.valid
   }
-  get NombreEdValid() {
-    return this.NombreEd?.touched && !this.NombreEd?.valid
-  }
   get PorcentajeEdValid() {
     return this.PorcentajeEd?.touched && !this.PorcentajeEd?.valid
   }
@@ -59,20 +56,12 @@ export class ModalHabilidadesComponent {
   }
 
   refreshPeople() {
-    this.datosPortafolio.obtenerDatos()
+    this.datosPortafolio.obtenerDatosHabilidades()
       .subscribe(data => {
-        this.habilidadesList=data.habilidades;
+        this.habilidadesList=data;
       })      
   }
   agregarHabilidad(){
-    //BUSCO EL ULTIMO ID Y LO CONFIGURO
-    var ultimo = this.habilidadesList[this.habilidadesList.length-1];
-    var idd = ultimo.id;
-    var palabra = idd.split("-");
-    var numero = parseInt(palabra[1]);
-    numero = numero + 1;
-    var nuevoId = palabra[0]+ "-" + numero;
-
     //GUARDO VALORES
     this.nombreAg = this.formAg.value.nombreAg;
     this.porcentajeAg = this.formAg.value.porcentajeAg;
@@ -80,14 +69,17 @@ export class ModalHabilidadesComponent {
     //CREO EL WIDTH
     var width = this.porcentajeAg+"%";
 
-    
-    //CREO EL ITEM Y LO AGREGO
-    var items = { "id":nuevoId, "nombre":this.nombreAg, "porcentaje":this.porcentajeAg, "width":width }
+    //SI ES VALIDO CREO EL ITEM Y LO AGREGO
+    if(this.NombreAg?.value.length > 0 && this.PorcentajeAg?.value.length > 0 && !this.NombreAgValid && !this.PorcentajeAgValid){
+    var items = { "nombre":this.nombreAg, "porcentaje":this.porcentajeAg, "width":width }
     this.datosPortafolio.agregarHab(items).subscribe();
     alert("Se Agrego Correctamente.")
     $(".modal-body input").val('');
     $('#habilidadModal').modal('hide');
-    //location.reload();
+    location.reload();
+    }else{
+      alert("Porfavor ingresar datos.")
+    }
   }
 
   editarHabilidad(){
@@ -96,19 +88,30 @@ export class ModalHabilidadesComponent {
     var mismoId = dsa;
     this.nombreEd = this.formEd.value.nombreEd;
     this.porcentajeEd = this.formEd.value.porcentajeEd;
+    
+    //SI LOS VALORES SIGUEN POR DEFECTO LOS ASGINO OTRA VEZ
+    if(this.NombreEd?.value.length == 0){
+      var as = $("#editNombreHab").val();
+      this.nombreEd = <string>as;
+    }
+
     //CREO EL WIDTH
     var width = this.porcentajeEd+"%";
 
-    //CREO EL ITEM Y LO AGREGO
-    var items = { "id":mismoId, "nombre":this.nombreEd, "porcentaje":this.porcentajeEd, "width":width }
-    const url = `http://localhost:3000/habilidades/${mismoId}`;
+    //SI ES VALIDO CREO EL ITEM Y LO AGREGO
+    if(this.PorcentajeEd?.value.length > 0 && !this.PorcentajeEdValid){
+    var items = { "idHabilidades":mismoId, "nombre":this.nombreEd, "porcentaje":this.porcentajeEd, "width":width }
+    const url = `https://portafolio-backend-rb21.onrender.com/habilidades/editar`;
     this.datosPortafolio.editarHab(url, items).subscribe();
     alert("Se Edito Correctamente.")
     $(".modal-body input").val('');
     var asd = document.getElementById("editId");
     asd!.textContent = "";
     $('#editarHabilidadModal').modal('hide');
-    //location.reload();
+    location.reload();
+    }else {
+      alert("Porfavor ingresar datos.")
+    }
   }
 
 }

@@ -18,27 +18,31 @@ export class EducacionComponent implements OnInit{
   }
 
   refreshPeople() {
-    this.datosPortafolio.obtenerDatos()
+    this.datosPortafolio.obtenerDatosEducacion()
       .subscribe(data => {
-        this.educacionList=data.educacion;
+        this.educacionList=data;
       })      
   }
 
   llenarEditarEducacion(id:string){
-    var contenedor = this.educacionList.filter((data: { id: string; }) => data.id == id);
+    var contenedor = this.educacionList.filter((data: { idEducacion: string; }) => data.idEducacion == id);
     var institucion = contenedor[0].universidad;
     var carrera = contenedor[0].carrera;
+    var fecha = contenedor[0].fecha;
+    $("#editInstitucionEducacion").val(institucion);
+    $("#editCarreraEducacion").val(carrera);
+    $("#editFechaEducacion").val(fecha);
     var asignador = document.getElementById("editEduId");
     asignador!.textContent = id;
-    document.querySelector("input#editInstitucionEducacion")?.setAttribute("value", institucion);
-    document.querySelector("input#editCarreraEducacion")?.setAttribute("value", carrera);
   $('#editarEducacionModal').modal('show');
 }
 
 
 borrarEducacion(data:any){
-    const url = `http://localhost:3000/educacion/${data.id}`;
+  console.log(data);
+    const url = `https://portafolio-backend-rb21.onrender.com/educacion/eliminar/${data.idEducacion}`;
     this.datosPortafolio.eliminarEdu(url, data).subscribe();
+    location.reload();
 }
 }
 

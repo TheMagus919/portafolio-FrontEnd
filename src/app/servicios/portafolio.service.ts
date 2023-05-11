@@ -7,11 +7,16 @@ const httpOptions = {
     'Content-Type': 'application/json',
   }),
 };
-const urlEdu = 'http://localhost:3000/educacion';
-const urlHab = 'http://localhost:3000/habilidades';
-const urlExp = 'http://localhost:3000/experiencias';
-const urlPro = 'http://localhost:3000/proyectos';
+const urlEdu = 'https://portafolio-backend-rb21.onrender.com/educacion/agregar';
+const urlHab = 'https://portafolio-backend-rb21.onrender.com/habilidades/agregar';
+const urlExp = 'https://portafolio-backend-rb21.onrender.com/experiencias/agregar';
+const urlPro = 'https://portafolio-backend-rb21.onrender.com/proyectos/agregar';
 
+const urlEd = 'https://portafolio-backend-rb21.onrender.com/educacion';
+const urlHa = 'https://portafolio-backend-rb21.onrender.com/habilidades';
+const urlEx = 'https://portafolio-backend-rb21.onrender.com/experiencias';
+const urlPr = 'https://portafolio-backend-rb21.onrender.com/proyectos';
+const urlPerf = 'https://portafolio-backend-rb21.onrender.com/perfil/1';
 
 
 @Injectable({
@@ -33,8 +38,20 @@ export class PortafolioService {
       this.refresh.next(value);
     }
 
-    obtenerDatos():Observable<any>{
-      return this.http.get('./assets/data/data.json');
+    obtenerDatosPerfil():Observable<any>{
+      return this.http.get(urlPerf);
+    }
+    obtenerDatosEducacion():Observable<any>{
+      return this.http.get(urlEd);
+    }
+    obtenerDatosExperiencias():Observable<any>{
+      return this.http.get(urlEx);
+    }
+    obtenerDatosHabilidades():Observable<any>{
+      return this.http.get(urlHa);
+    }
+    obtenerDatosProyectos():Observable<any>{
+      return this.http.get(urlPr);
     }
 
     guardarImagen(url:string,data:any){

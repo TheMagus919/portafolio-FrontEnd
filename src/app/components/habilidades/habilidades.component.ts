@@ -11,25 +11,25 @@ export class HabilidadesComponent implements OnInit{
   habilidadesList:any;
   constructor(private datosPortafolio:PortafolioService, public authService:AuthService){}
   ngOnInit(): void{
-    this.datosPortafolio.obtenerDatos().subscribe(data => {
-      this.habilidadesList = data.habilidades;
+    this.datosPortafolio.obtenerDatosHabilidades().subscribe(data => {
+      this.habilidadesList = data;
     });
   }
 
   llenarEditarHab(id:string){
-    var contenedor = this.habilidadesList.filter((data: { id: string; }) => data.id == id);
-    console.log(contenedor)
-    var nombre = contenedor[0].nombre;
+    var contenedor = this.habilidadesList.filter((data: { idHabilidades: string; }) => data.idHabilidades == id);
+    var nombre = contenedor[0].nombre;   
+    $("#editNombreHab").val(nombre);
     var asd = document.getElementById("editId");
-    console.log(asd)
     asd!.textContent = id;
     $('#editarHabilidadModal').modal('show');
   }
 
   borrarHab(data:any):void{
     console.log(data)
-    const url = `http://localhost:3000/habilidades/${data.id}`;
+    const url = `https://portafolio-backend-rb21.onrender.com/habilidades/eliminar/${data.idHabilidades}`;
     this.datosPortafolio.eliminarHab(url, data).subscribe();
+    location.reload();
   }
 }
 

@@ -11,7 +11,7 @@
     </div>
     <ul class="listaDeItems" style="list-style-type: none;">
         <li *ngFor="let educacion of educacionList">
-            <div class="row" [id]="educacion.id">
+            <div class="row" [id]="educacion.idEducacion">
                 <div class="col-sm-1">
                     <img [src]="educacion.imagen" class="rounded float-start">
                 </div>
@@ -21,7 +21,7 @@
                     <p>{{educacion.fecha}}</p>
                 </div>
                 <div class="col-sm-2">
-                    <button type="button" class="btn" (click)="llenarEditarEducacion(educacion.id)" *ngIf="authService.logIn">
+                    <button type="button" class="btn" (click)="llenarEditarEducacion(educacion.idEducacion)" *ngIf="authService.logIn">
                         <img src="./assets/imagenes/editar.png" class="imgeditar">
                     </button>
                     <button type="button" class="btn" (click)="borrarEducacion(educacion)" *ngIf="authService.logIn">

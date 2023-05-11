@@ -45,9 +45,10 @@ extraerBase64 = ($event: any) => {
 
   agregarImagen(){
     this.loadingAg = true;
-    //CREO EL ITEM Y LO AGREGO
-    var items = { "imagen":this.base64Ag.base}
-    const url = `http://localhost:3000/fotoperfil`;
+    //SI PASA LA IMAGEN CREO EL ITEM Y LO AGREGO
+    if(this.base64Ag == !undefined){
+    var items = this.base64Ag.base
+    const url = `https://portafolio-backend-rb21.onrender.com/perfil/cambiarfoto/1`;
     this.datosPortafolio.cambiarImg(url, items).subscribe(res => {
       this.loadingAg = false;
       console.log('Respuesta del servidor', res);
@@ -56,6 +57,10 @@ extraerBase64 = ($event: any) => {
     alert("Se Agrego Correctamente.")
     $(".modal-body input").val('');
     $('#cambiarFotoModal').modal('hide');
-    //location.reload();
+    location.reload();
+  } else {
+    this.loadingAg = false;
+    alert("Porfavor seleccionar una imagen.");
+  }
   }
 }

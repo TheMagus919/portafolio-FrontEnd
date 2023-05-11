@@ -60,7 +60,7 @@ export class ModalExperienciaComponent implements OnInit{
   }
   
   get OcupacionAg(){
-    return this.formAg.get("institucionAg");
+    return this.formAg.get("ocupacionAg");
   }
   get LocalAg(){
     return this.formAg.get("localAg");
@@ -113,29 +113,17 @@ export class ModalExperienciaComponent implements OnInit{
   get ImagenAgValid() {
     return this.ImagenAg?.touched && !this.ImagenAg?.valid
   }
-  get OcupacionEdValid() {
-    return this.OcupacionEd?.touched && !this.OcupacionEd?.valid
-  }
-  get LocalEdValid() {
-    return this.LocalEd?.touched && !this.LocalEd?.valid
-  }
-  get CiudadEdValid() {
-    return this.CiudadEd?.touched && !this.CiudadEd?.valid
-  }
   get JornadaEdValid() {
     return this.JornadaEd?.touched && !this.JornadaEd?.valid
-  }
-  get FechaEdValid() {
-    return this.FechaEd?.touched && !this.FechaEd?.valid
   }
   get ImagenEdValid() {
     return this.ImagenEd?.touched && !this.ImagenEd?.valid
   }
 
   refreshPeople() {
-    this.datosPortafolio.obtenerDatos()
+    this.datosPortafolio.obtenerDatosExperiencias()
       .subscribe(data => {
-        this.experienciaList=data.experiencias;
+        this.experienciaList=data;
       })      
   }
 
@@ -174,13 +162,6 @@ export class ModalExperienciaComponent implements OnInit{
 
   agregarExperiencia(){
     this.loadingAg = true;
-    //busco el ultimo id y lo configuro
-    var ultimo = this.experienciaList[this.experienciaList.length-1];
-    var idd = ultimo.id;
-    var palabra = idd.split("-");
-    var numero = parseInt(palabra[1]);
-    numero = numero + 1;
-    var nuevoId = palabra[0]+ "-" + numero;
 
     //GUARDO VALORES
     this.ocupacionAg = this.formAg.value.ocupacionAg;
@@ -188,9 +169,10 @@ export class ModalExperienciaComponent implements OnInit{
     this.fechaAg = this.formAg.value.fechaAg;
     this.ciudadAg = this.formAg.value.ciudadAg;
     this.jornadaAg = this.formAg.value.jornadaAg;
-    
-    //CREO EL ITEM Y LO AGREGO
-    var items = { "id":nuevoId, "idImagen":"", "puesto":this.ocupacionAg, "local":this.localAg,"jornada":this.jornadaAg, "fecha":this.fechaAg,"ciudad":this.ciudadAg , "imagen":this.base64Ag.base}
+
+    //SI ES VALIDA CREO EL ITEM Y LO AGREGO
+    if(this.OcupacionAg?.value.length > 0 && this.LocalAg?.value.length > 0 && this.FechaAg?.value.length > 0 && this.CiudadAg?.value.length > 0 && this.JornadaAg?.value.length > 0 && this.ImagenAg?.value.length > 0 && !this.OcupacionAgValid && !this.FechaAgValid && !this.JornadaAgValid && !this.LocalAgValid && !this.ImagenAgValid && !this.CiudadAgValid){
+    var items = { "puesto":this.ocupacionAg, "local":this.localAg, "jornada":this.jornadaAg, "fecha":this.fechaAg,"ciudad":this.ciudadAg , "imagen":this.base64Ag.base}
     this.datosPortafolio.agregarExp(items).subscribe(res => {
       this.loadingAg = false;
       console.log('Respuesta del servidor', res);
@@ -199,7 +181,11 @@ export class ModalExperienciaComponent implements OnInit{
     alert("Se Agrego Correctamente.")
     $(".modal-body input").val('');
     $('#experienciaModal').modal('hide');
-    //location.reload();
+    location.reload();
+  } else {
+    this.loadingAg = false;
+    alert("Porfavor ingresar los datos.")
+  }
   }
 
   editarExperiencia(){
@@ -212,9 +198,28 @@ export class ModalExperienciaComponent implements OnInit{
     this.ciudadEd = this.formEd.value.ciudadEd;
     this.jornadaEd = this.formEd.value.jornadaEd;
 
-    //CREO EL ITEM Y LO AGREGO
-    var items = { "id":id, "idImagen":"", "puesto":this.ocupacionEd, "local":this.localEd,"jornada":this.jornadaEd, "fecha":this.fechaEd,"ciudad":this.ciudadEd , "imagen":this.base64Ed.base }
-    const url = `http://localhost:3000/experiencias/${id}`;
+    //SI LOS VALORES SIGUEN POR DEFECTO LOS ASGINO OTRA VEZ
+    if(this.OcupacionEd?.value.length == 0){
+      var ocupacion = $("#editOcupacionExperiencia").val();
+      this.ocupacionEd = <string>ocupacion;
+    }
+    if(this.LocalEd?.value.length == 0){
+      var local = $("#editLocalExperiencia").val();
+      this.localEd = <string>local;
+    }
+    if(this.FechaEd?.value.length == 0){
+      var fecha = $("#editFechaExperiencia").val();
+      this.fechaEd = <string>fecha;
+    }
+    if(this.CiudadEd?.value.length == 0){
+      var ciudad = $("#editCiudadExperiencia").val();
+      this.ciudadEd = <string>ciudad;
+    }
+
+    //SI ES VALIDO CREO EL ITEM Y LO AGREGO
+    if(this.JornadaEd?.value.length > 0 && this.ImagenEd?.value.length > 0 && !this.JornadaEdValid && !this.ImagenEdValid){
+    var items = { "idExperiencias":id, "puesto":this.ocupacionEd, "local":this.localEd,"jornada":this.jornadaEd, "fecha":this.fechaEd,"ciudad":this.ciudadEd , "imagen":this.base64Ed.base }
+    const url = `https://portafolio-backend-rb21.onrender.com//experiencias/editar`;
     this.datosPortafolio.editarExp(url, items).subscribe(res => {
       this.loadingEd = false;
       console.log('Respuesta del servidor', res);
@@ -224,6 +229,10 @@ export class ModalExperienciaComponent implements OnInit{
     var asd = document.getElementById("editExpId");
     asd!.textContent = "";
     $('#editarExperienciaModal').modal('hide');
-    //location.reload();
+    location.reload();
+  }else {
+    this.loadingEd = false;
+    alert("Porfavor ingresar los datos.")
+  }
   }
 }

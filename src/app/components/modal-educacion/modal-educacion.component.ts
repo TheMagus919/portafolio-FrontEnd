@@ -96,23 +96,14 @@ export class ModalEducacionComponent implements OnInit{
   get ImagenAgValid() {
     return this.ImagenAg?.touched && !this.ImagenAg?.valid
   }
-  get InstitucionEdValid() {
-    return this.InstitucionEd?.touched && !this.InstitucionEd?.valid
-  }
-  get CarreraEdValid() {
-    return this.CarreraEd?.touched && !this.CarreraEd?.valid
-  }
-  get FechaEdValid() {
-    return this.FechaEd?.touched && !this.FechaEd?.valid
-  }
   get ImagenEdValid() {
     return this.ImagenEd?.touched && !this.ImagenEd?.valid
   }
 
   refreshPeople() {
-    this.datosPortafolio.obtenerDatos()
+    this.datosPortafolio.obtenerDatosEducacion()
       .subscribe(data => {
-        this.educacionList=data.educacion;
+        this.educacionList=data;
       })      
   }
   //CAPTURO IMAGEN
@@ -150,13 +141,6 @@ export class ModalEducacionComponent implements OnInit{
 
   agregarEducacion(){
     this.loadingAg = true;
-    //busco el ultimo id y lo configuro
-    var ultimo = this.educacionList[this.educacionList.length-1];
-    var idd = ultimo.id;
-    var palabra = idd.split("-");
-    var numero = parseInt(palabra[1]);
-    numero = numero + 1;
-    var nuevoId = palabra[0]+ "-" + numero;
 
     //GUARDO VALORES
     this.institucionAg = this.formAg.value.institucionAg;
@@ -164,8 +148,9 @@ export class ModalEducacionComponent implements OnInit{
     this.fechaAg = this.formAg.value.fechaAg;
     this.imagenAg = this.formAg.value.imagenAg;
     
-    //CREO EL ITEM Y LO AGREGO
-    var items = { "id":nuevoId, "universidad":this.institucionAg, "carrera":this.carreraAg, "fecha":this.fechaAg, "imagen":this.base64Ag.base}
+    //SI ES VALIDO CREO EL ITEM Y LO AGREGO
+    if(this.InstitucionAg?.value.length > 0 && this.CarreraAg?.value.length > 0 && this.FechaAg?.value.length > 0 && this.ImagenAg?.value.length > 0 &&!this.InstitucionAgValid &&!this.ImagenAgValid &&!this.FechaAgValid && !this.CarreraAgValid){
+    var items = { "universidad":this.institucionAg, "carrera":this.carreraAg, "fecha":this.fechaAg, "imagen":this.base64Ag.base}
     this.datosPortafolio.agregarEdu(items).subscribe(res => {
       this.loadingAg = false;
       console.log('Respuesta del servidor', res);
@@ -174,8 +159,13 @@ export class ModalEducacionComponent implements OnInit{
     alert("Se Agrego Correctamente.")
     $(".modal-body input").val('');
     $('#educacionModal').modal('hide');
-    //location.reload();
+    location.reload();
+    }else {
+      this.loadingAg = false;
+      alert("Porfavor ingresar datos");
   }
+  }
+
   editarEducacion(){
     this.loadingEd = true;
     //GUARDO VALORES
@@ -183,10 +173,25 @@ export class ModalEducacionComponent implements OnInit{
     this.institucionEd = this.formEd.value.institucionEd;
     this.carreraEd = this.formEd.value.carreraEd;
     this.fechaEd = this.formEd.value.fechaEd;
+    
+    //SI LOS VALORES SIGUEN POR DEFECTO LOS ASGINO OTRA VEZ
+    if(this.InstitucionEd?.value.length == 0){
+      var institucion = $("#editInstitucionEducacion").val();
+      this.institucionEd = <string>institucion;
+    }
+    if(this.CarreraEd?.value.length == 0){
+      var carrera = $("#editCarreraEducacion").val();
+      this.carreraEd = <string>carrera;
+    }
+    if(this.FechaEd?.value.length == 0){
+      var fecha =$("#editFechaEducacion").val();
+      this.fechaEd = <string>fecha;
+    }
 
-    //CREO EL ITEM Y LO AGREGO
-    var items = { "id":id, "universidad":this.institucionEd, "carrera":this.carreraEd, "fecha":this.fechaEd, "imagen":this.base64Ed.base}
-    const url = `http://localhost:3000/educacion/${id}`;
+    //SI ES VALIDO CREO EL ITEM Y LO AGREGO
+    if(this.ImagenEd?.value.length > 0 && !this.ImagenEdValid ){
+    var items = { "idEducacion":id, "universidad":this.institucionEd, "carrera":this.carreraEd, "fecha":this.fechaEd, "imagen":this.base64Ed.base}
+    const url = `https://portafolio-backend-rb21.onrender.com/educacion/editar`;
     this.datosPortafolio.editarEdu(url, items).subscribe(res => {
       this.loadingEd = false;
       console.log('Respuesta del servidor', res);
@@ -196,52 +201,10 @@ export class ModalEducacionComponent implements OnInit{
     var asd = document.getElementById("editEduId");
     asd!.textContent = "";
     $('#editarEducacionModal').modal('hide');
-    //location.reload();
-  }
-/* agregarEducacion():void{
-    //busco el ultimo id y lo configuro
-    var ultimo = this.educacionList[this.educacionList.length-1];
-    var idd = ultimo.id;
-    var palabra = idd.split("-");
-    var numero = parseInt(palabra[1]);
-    numero = numero + 1;
-    var nuevoId = palabra[0]+ "-" + numero;
-
-    //configuro id para imagen
-    var idimagen = "imagenn"+numero;
-    console.log("soy el id de la imagen"+idimagen);
-
-    this.institucionAg = this.form.value.institucionAg;
-    this.carreraAg = this.form.value.carreraAg;
-    this.fechaInicioAg = this.form.value.fechaInicioAg;
-    this.fechaFinAg = this.form.value.fechaFinAg;
-    this.imagenAg = this.form.value.imagenAg;
-
-    var items = { "id":nuevoId, "universidad":this.institucionAg, "carrera":this.carreraAg, "fechaInicio":this.fechaInicioAg , "fechaFin":this.fechaFinAg, "imagen":""}
-    var file = (<HTMLInputElement>document.getElementById("subimg")).files![0];
-    this.datosPortafolio.agregarEdu(items);
-    this.educacionComponent.refreshPeople();
-    $(".modal-body input").val('');
-    $('#educacionModal').modal('hide');
     location.reload();
-    this.agregarImg(nuevoId, file);
+  }else {
+    this.loadingEd = false;
+    alert("Porfavor ingresar datos");
   }
-  agregarImg(id:string,file:File){
-
-    var filess = file;
-
-    const read = new FileReader();
-    read.onload = function(){
-        var imagenn = document.getElementById(id);
-        var cambio = imagenn!.querySelector("img");
-        console.log(cambio)
-        console.log(imagenn)
-        const result = this.result;
-        const url = result?.toString();
-        cambio?.setAttribute('src', url!);
-        console.log(cambio)
-    }   
-    read.readAsDataURL(filess);
-    alert("guardado exitoso");
-  }*/
+  }
 }

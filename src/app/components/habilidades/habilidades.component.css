@@ -1,11 +1,15 @@
 .habilidad{
-    background-color: white;
+    background-color: rgb(252, 252, 252);
     border-radius: 1em;
     margin: 1em;
 }
 h5{
     margin: 0.5em;
 }
-p{
+p{  
+    text-align: center;
     margin-left: 30px;
+}
+.col-sm-8{
+    margin-top: 1em;
 }

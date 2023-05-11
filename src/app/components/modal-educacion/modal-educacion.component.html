@@ -46,15 +46,15 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="editInstitucionEducacion" class="form-label">Institucion</label>
-                        <input type="text" class="form-control" aria-describedby="editInstitucionEducacion" id="editInstitucionEducacion" formControlName="institucionEd" [class.border-danger]="InstitucionEdValid">
+                        <input type="text" class="form-control" aria-describedby="editInstitucionEducacion" id="editInstitucionEducacion" formControlName="institucionEd">
                     </div>
                     <div class="mb-3">
                         <label for="editCarreraEducacion" class="form-label">Carrera</label>
-                        <input type="text" class="form-control" aria-describedby="editCarreraEducacion" id="editCarreraEducacion" formControlName="carreraEd" [class.border-danger]="CarreraEdValid">
+                        <input type="text" class="form-control" aria-describedby="editCarreraEducacion" id="editCarreraEducacion" formControlName="carreraEd">
                     </div>
                     <div class="mb-3">
                         <label for="editarFecha" class="form-label">Fecha</label>
-                        <input type="text" class="form-control" aria-describedby="editFechaEducacion" placeholder="INICIO - FIN" formControlName="fechaEd" [class.border-danger]="FechaEdValid">
+                        <input type="text" class="form-control" aria-describedby="editFechaEducacion" id="editFechaEducacion" placeholder="INICIO - FIN" formControlName="fechaEd">
                     </div>
                     <div class="input-group mb-3">
                         <input type="file" class="form-control" (change)="onFileSelectedEd($event)" formControlName="imagenEd" [class.border-danger]="ImagenEdValid">

@@ -12,14 +12,14 @@
         </div>
         <ul class="listaDeItems" style="list-style-type: none;">
             <li *ngFor="let proyecto of proyectosList">
-                <div class="row" [id]="proyecto.id">
+                <div class="row" [id]="proyecto.idProyectos">
                     <div class="col-sm-10">
                         <a [href]="proyecto.url" ><h5>{{proyecto.titulo}}</h5></a>
                         <p>{{proyecto.descripcion}}</p>
                         <a *ngIf='proyecto.pagina != ""' [href]="proyecto.pagina"><p>{{proyecto.pagina}}</p></a>
                     </div>
                     <div class="col-sm-2">
-                        <button type="button" class="btn" (click)="llenarEditarProyectos(proyecto.id)" *ngIf="authService.logIn">
+                        <button type="button" class="btn" (click)="llenarEditarProyectos(proyecto.idProyectos)" *ngIf="authService.logIn">
                             <img src="./assets/imagenes/editar.png" class="imgeditar">
                         </button>
                         <button type="button" class="btn" (click)="borrarProyecto(proyecto)" *ngIf="authService.logIn">

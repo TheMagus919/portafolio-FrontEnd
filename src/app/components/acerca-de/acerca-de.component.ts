@@ -17,9 +17,9 @@ export class AcercaDeComponent implements OnInit {
   }
 
   refreshPeople() {
-    this.datosPortafolio.obtenerDatos()
+    this.datosPortafolio.obtenerDatosPerfil()
       .subscribe(data => {
-        this.informacion=data.acercade;
+        this.informacion=data.info;
       })      
   }
   
@@ -40,9 +40,8 @@ export class AcercaDeComponent implements OnInit {
 
   guardar(){
     const area = document.getElementById(`informacionEdit`) as HTMLTextAreaElement;
-    const url = `http://localhost:3000/acercade`;
-    var items = { "info":area.value }
-    this.datosPortafolio.editarAce(url, items).subscribe();
+    const url = `https://portafolio-backend-rb21.onrender.com/perfil/cambiarinfo/1`;
+    this.datosPortafolio.editarAce(url, area.value).subscribe();
     document.getElementById("informacionEdit")?.removeAttribute("enabled")
     document.getElementById("informacionEdit")?.setAttribute("disabled", "disaabled");
     document.getElementById("botonEdit")?.setAttribute("hidden", "hidden");

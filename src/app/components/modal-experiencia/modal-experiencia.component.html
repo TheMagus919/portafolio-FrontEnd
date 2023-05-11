@@ -57,11 +57,11 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="editOcupacionExperiencia" class="form-label">Ocupacion</label>
-                        <input type="text" class="form-control" aria-describedby="editOcupacionExperiencia" formControlName="ocupacionEd" [class.border-danger]="OcupacionEdValid">
+                        <input type="text" class="form-control" id="editOcupacionExperiencia" aria-describedby="editOcupacionExperiencia" formControlName="ocupacionEd">
                     </div>
                     <div class="mb-3">
                         <label for="editLocalExperiencia" class="form-label">Local</label>
-                        <input type="text" class="form-control" aria-describedby="editLocalExperiencia" formControlName="localEd" [class.border-danger]="LocalEdValid">
+                        <input type="text" class="form-control" id="editLocalExperiencia" aria-describedby="editLocalExperiencia" formControlName="localEd">
                     </div>
                     <div class="mb-3">
                         <label for="editJornadaExperiencia" class="form-label">Tipo de Jornada</label>
@@ -72,11 +72,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="editCiudadExperiencia" class="form-label">Ciudad</label>
-                        <input type="text" class="form-control" aria-describedby="editCiudadExperiencia" formControlName="ciudadEd" [class.border-danger]="CiudadEdValid">
+                        <input type="text" class="form-control" id="editCiudadExperiencia" aria-describedby="editCiudadExperiencia" formControlName="ciudadEd">
                     </div>
                     <div class="mb-3">
                         <label for="fecha" class="form-label">Fecha</label>
-                        <input type="text" class="form-control" aria-describedby="fecha" formControlName="fechaEd" [class.border-danger]="FechaEdValid" placeholder="INICIO - FIN">
+                        <input type="text" class="form-control" id="editFechaExperiencia" aria-describedby="fecha" formControlName="fechaEd" placeholder="INICIO - FIN">
                     </div>
                     <div class="input-group mb-3">
                         <input type="file" class="form-control" (change)="onFileSelectedEd($event)" formControlName="imagenEd" [class.border-danger]="ImagenEdValid">
