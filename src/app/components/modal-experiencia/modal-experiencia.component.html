@@ -1,0 +1,95 @@
+<div class="modal fade" id="experienciaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="formAg">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Agregar Experiencia</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="ocupacion" class="form-label">Ocupacion</label>
+                        <input type="text" class="form-control" aria-describedby="ocupacion" formControlName="ocupacionAg" [class.border-danger]="OcupacionAgValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="local" class="form-label">Local</label>
+                        <input type="text" class="form-control" aria-describedby="local" formControlName="localAg" [class.border-danger]="LocalAgValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jornadaExperiencia" class="form-label">Tipo de Jornada</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" formControlName="jornadaAg" [class.border-danger]="JornadaAgValid">
+                            <option value="Jornada Parcial">Jornada Parcial</option>
+                            <option value="Jornada Completa">Jornada Completa</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha</label>
+                        <input type="text" class="form-control" aria-describedby="fecha" formControlName="fechaAg" [class.border-danger]="FechaAgValid" placeholder="INICIO - FIN">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ciudad" class="form-label">Ciudad</label>
+                        <input type="text" class="form-control" aria-describedby="ciudad" formControlName="ciudadAg" [class.border-danger]="CiudadAgValid">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="subimgexp" (change)="onFileSelectedAg($event)" formControlName="imagenAg" [class.border-danger]="ImagenAgValid">
+                        <label class="input-group-text" for="subimgexp">Subir Imagen</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" [disabled]="loadingAg" (click)="agregarExperiencia()">
+                        {{(loadingAg) ? 'Cargando.....' : 'Añadir'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editarExperienciaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="formEd">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Editar Experiencia</h1>
+                    <p id="editExpId" hidden></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editOcupacionExperiencia" class="form-label">Ocupacion</label>
+                        <input type="text" class="form-control" aria-describedby="editOcupacionExperiencia" formControlName="ocupacionEd" [class.border-danger]="OcupacionEdValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editLocalExperiencia" class="form-label">Local</label>
+                        <input type="text" class="form-control" aria-describedby="editLocalExperiencia" formControlName="localEd" [class.border-danger]="LocalEdValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editJornadaExperiencia" class="form-label">Tipo de Jornada</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" formControlName="jornadaEd" [class.border-danger]="JornadaEdValid">
+                            <option value="Jornada Parcial">Jornada Parcial</option>
+                            <option value="Jornada Completa">Jornada Completa</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCiudadExperiencia" class="form-label">Ciudad</label>
+                        <input type="text" class="form-control" aria-describedby="editCiudadExperiencia" formControlName="ciudadEd" [class.border-danger]="CiudadEdValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha</label>
+                        <input type="text" class="form-control" aria-describedby="fecha" formControlName="fechaEd" [class.border-danger]="FechaEdValid" placeholder="INICIO - FIN">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" (change)="onFileSelectedEd($event)" formControlName="imagenEd" [class.border-danger]="ImagenEdValid">
+                        <label class="input-group-text" for="subimg">Subir Imagen</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" [disabled]="loadingEd" (click)="editarExperiencia()">
+                        {{(loadingEd) ? 'Cargando.....' : 'Editar'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

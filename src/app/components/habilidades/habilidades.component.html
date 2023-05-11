@@ -1,0 +1,37 @@
+<div class="habilidad">
+    <div class="container" id="hab">
+        <div class="row">
+            <div class="col-sm-11">
+                <h5>Habilidades</h5>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn" id="añadirhab" data-bs-toggle="modal" data-bs-target="#habilidadModal" *ngIf="authService.logIn">
+                    <img src="./assets/imagenes/añadir.png" class="imgañadir">
+                </button>
+            </div>
+        </div>
+        <ul class="listaDeItems" style="list-style-type: none;">
+            <li *ngFor="let habilidad of habilidadesList">
+                <div class="row" [id]="habilidad.id">
+                    <div class="col-sm-2">
+        
+                    </div>
+                    <div class="col-sm-8">
+                        <p>{{habilidad.nombre}}</p>
+                        <div class="progress" role="progressbar" aria-label="Animated striped example" [attr.aria-valuenow]="habilidad.porcentaje" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" [style.width]="habilidad.width"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn" (click)="llenarEditarHab(habilidad.id)" *ngIf="authService.logIn">
+                            <img src="./assets/imagenes/editar.png" class="imgeditar">
+                        </button>
+                        <button type="button" class="btn" (click)="borrarHab(habilidad)" *ngIf="authService.logIn">
+                            <img src="./assets/imagenes/eliminar.png" class="imgeliminar">
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

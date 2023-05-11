@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+.container{
+    padding: 1rem 1.5rem;
+    margin-left: 2.5em;
+    margin-right: 2.5em;
+}
+.imgeditar{
+    width: 17px;
+    height: 17px;
+}
+.imgañadir{
+    width: 20px;
+    height: 20px;
+}
+.imgeliminar{
+    width: 17px;
+    height: 17px;
+}
+header{
+    background-color: black;
+    color: #ffffff;
+}
+.educacionyExp .rounded{
+    width: 5em;
+    height: 5em;
+    margin-top: 1.75em;
+}
+.educacionyExp .btn{
+    margin-top: 1.2em;
+}
+.habilidad .btn{
+    margin-top: 1.2em;
+}
+.proyectos .btn{
+    margin-top: 1.2em;
+}

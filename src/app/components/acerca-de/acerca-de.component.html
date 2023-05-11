@@ -1,0 +1,21 @@
+<div class="acercaDe">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-11">
+                <h5>Sobre Mi</h5>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn" *ngIf="authService.logIn" (click)="habilitarEdit()">
+                    <img src="./assets/imagenes/editar.png" class="imgeditar">
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <textarea id="informacionEdit" class="form-control w-85" aria-label="With textarea" disabled style="background-color: white;" rows="6">{{informacion.info}}</textarea>
+                <label id="consejo" style="color: dimgray;" hidden> Si desea cancelar la edición vuelva a presionar la imagen para editar.</label>
+                <input type="button" id="botonEdit" class="btn btn-outline-success" value="Guardar" style="float: right; margin: 10px;" (click)="guardar()" hidden> 
+            </div>
+        </div>
+    </div>
+</div>

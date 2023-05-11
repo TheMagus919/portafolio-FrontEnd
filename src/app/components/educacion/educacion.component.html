@@ -1,0 +1,34 @@
+<div class="container" id="edu">
+    <div class="row">
+        <div class="col-sm-11">
+            <h5>Educacion</h5>
+        </div>
+        <div class="col-sm-1">
+            <button type="button" class="btn" id="añadiredu" data-bs-toggle="modal" data-bs-target="#educacionModal" *ngIf="authService.logIn">
+                <img src="./assets/imagenes/añadir.png" class="imgañadir">
+            </button>
+        </div>
+    </div>
+    <ul class="listaDeItems" style="list-style-type: none;">
+        <li *ngFor="let educacion of educacionList">
+            <div class="row" [id]="educacion.id">
+                <div class="col-sm-1">
+                    <img [src]="educacion.imagen" class="rounded float-start">
+                </div>
+                <div class="col-sm-9">
+                    <h4>{{educacion.universidad}}</h4>
+                    <p class="textoCarrera">{{educacion.carrera}}</p>
+                    <p>{{educacion.fecha}}</p>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn" (click)="llenarEditarEducacion(educacion.id)" *ngIf="authService.logIn">
+                        <img src="./assets/imagenes/editar.png" class="imgeditar">
+                    </button>
+                    <button type="button" class="btn" (click)="borrarEducacion(educacion)" *ngIf="authService.logIn">
+                        <img src="./assets/imagenes/eliminar.png" class="imgeliminar">
+                    </button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

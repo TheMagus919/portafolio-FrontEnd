@@ -1,0 +1,33 @@
+<div class="proyectos">
+    <div class="container" id="proyect">
+        <div class="row">
+            <div class="col-sm-11">
+                <h5>Proyectos</h5>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn" id="añadirpro" data-bs-toggle="modal" data-bs-target="#proyectosModal" *ngIf="authService.logIn">
+                    <img src="./assets/imagenes/añadir.png" class="imgañadir">
+                </button>
+            </div>
+        </div>
+        <ul class="listaDeItems" style="list-style-type: none;">
+            <li *ngFor="let proyecto of proyectosList">
+                <div class="row" [id]="proyecto.id">
+                    <div class="col-sm-10">
+                        <a [href]="proyecto.url" ><h5>{{proyecto.titulo}}</h5></a>
+                        <p>{{proyecto.descripcion}}</p>
+                        <a *ngIf='proyecto.pagina != ""' [href]="proyecto.pagina"><p>{{proyecto.pagina}}</p></a>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn" (click)="llenarEditarProyectos(proyecto.id)" *ngIf="authService.logIn">
+                            <img src="./assets/imagenes/editar.png" class="imgeditar">
+                        </button>
+                        <button type="button" class="btn" (click)="borrarProyecto(proyecto)" *ngIf="authService.logIn">
+                            <img src="./assets/imagenes/eliminar.png" class="imgeliminar">
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

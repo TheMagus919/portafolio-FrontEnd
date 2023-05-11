@@ -1,0 +1,26 @@
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <img src="./assets/imagenes/banner2.jpg" class="img-fluid">
+            </div>
+        </div>
+        <img [src]="foto.imagen" id="fotoPerfil" class="fotoPerfil"/>
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#cambiarFotoModal" *ngIf="authService.logIn">
+            <img src="./assets/imagenes/editar.png" class="imgeditar"/>
+        </button>
+        <div class="row" id="perfil">
+            <div class="col-sm-9">
+                <h5>{{miPerfil.nombre}}<button type="button" class="btn" (click)="llenarEditarEducacion()" *ngIf="authService.logIn">
+                    <img src="./assets/imagenes/editar.png" class="imgeditar"/>
+                    </button>
+                </h5>
+                <p>{{miPerfil.profesion}}</p>
+                <p>{{miPerfil.ciudad}}</p>
+            </div>
+            <div class="col-sm-3">
+                <img [src]="miPerfil.fotoUniversidad" class= "logoulp"/>{{miPerfil.universidad}}
+            </div>
+        </div>
+    </div>
+</div>

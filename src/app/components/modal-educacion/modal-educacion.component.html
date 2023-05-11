@@ -1,0 +1,73 @@
+<div class="modal fade" id="educacionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="formAg" >
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Agregar Educacion</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="institucion" class="form-label">Institucion</label>
+                        <input type="text" class="form-control" aria-describedby="institucion" formControlName="institucionAg" [class.border-danger]="InstitucionAgValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="carrera" class="form-label">Carrera</label>
+                        <input type="text" class="form-control" aria-describedby="carrera" formControlName="carreraAg" [class.border-danger]="CarreraAgValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha</label>
+                        <input type="text" class="form-control" aria-describedby="fechaEducacion" placeholder="INICIO - FIN" formControlName="fechaAg" [class.border-danger]="FechaAgValid">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" (change)="onFileSelectedAg($event)" id="subimg" formControlName="imagenAg" [class.border-danger]="ImagenAgValid">
+                        <label class="input-group-text" for="subimg">Subir Imagen</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" [disabled]="loadingAg" (click)="agregarEducacion()">
+                        {{(loadingAg) ? 'Cargando.....' : 'Añadir'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editarEducacionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="formEd" >
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Editar Educacion</h1>
+                    <p id="editEduId" hidden></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editInstitucionEducacion" class="form-label">Institucion</label>
+                        <input type="text" class="form-control" aria-describedby="editInstitucionEducacion" id="editInstitucionEducacion" formControlName="institucionEd" [class.border-danger]="InstitucionEdValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCarreraEducacion" class="form-label">Carrera</label>
+                        <input type="text" class="form-control" aria-describedby="editCarreraEducacion" id="editCarreraEducacion" formControlName="carreraEd" [class.border-danger]="CarreraEdValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editarFecha" class="form-label">Fecha</label>
+                        <input type="text" class="form-control" aria-describedby="editFechaEducacion" placeholder="INICIO - FIN" formControlName="fechaEd" [class.border-danger]="FechaEdValid">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" (change)="onFileSelectedEd($event)" formControlName="imagenEd" [class.border-danger]="ImagenEdValid">
+                        <label class="input-group-text" for="subimg">Subir Imagen</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="botonEditarEducacion" [disabled]="loadingEd" (click)="editarEducacion()">
+                        {{(loadingEd) ? 'Cargando.....' : 'Editar'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="modal fade" id="proyectosModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="formAg">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="eduBackdropLabel">Agregar Proyectos</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nombreProyecto" class="form-label">Nombre del Proyecto</label>
+                        <input type="text" class="form-control" aria-describedby="nombreProyecto" formControlName="nombreAg" [class.border-danger]="NombreAgValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccionUrl" class="form-label">Dirección del Proyecto</label>
+                        <input type="text" class="form-control" aria-describedby="direccionUrl" formControlName="urlAg" [class.border-danger]="UrlAgValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="paginaProyecto" class="form-label">Pagina</label>
+                        <input type="text" class="form-control" aria-describedby="paginaProyecto" formControlName="paginaAg" [class.border-danger]="PaginaAgValid">
+                    </div>
+                    <div class="mb-3">
+                        <span class="input-group-text">Descripción</span>
+                        <textarea class="form-control" aria-label="With textarea" formControlName="descripcionAg" [class.border-danger]="DescripcionAgValid"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <input type="button" class="btn btn-primary" value="Añadir" (click)="agregarProyecto()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editarProyectoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="formEd">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Editar Proyecto</h1>
+                    <p id="editProId" hidden></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editNombreProyecto" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" aria-describedby="editNombreProyecto" formControlName="nombreEd" [class.border-danger]="NombreEdValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUrlProyecto" class="form-label">URL</label>
+                        <input type="text" class="form-control" aria-describedby="editUrlProyecto" formControlName="urlEd" [class.border-danger]="UrlEdValid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPaginaProyecto" class="form-label">Pagina</label>
+                        <input type="text" class="form-control" aria-describedby="editPaginaProyecto" formControlName="paginaEd" [class.border-danger]="PaginaEdValid">
+                    </div>
+                    <div class="mb-3">
+                        <span class="input-group-text">Descripción</span>
+                        <textarea class="form-control" aria-label="With textarea" formControlName="descripcionEd" [class.border-danger]="DescripcionEdValid"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <input type="button" id="botonEditarProyecto" class="btn btn-primary" value="Añadir" (click)="editarProyecto()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

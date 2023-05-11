@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <img src="./assets/imagenes/arg-prog.png" width="150px" height="40px">
+        </div>
+        <div class="col-sm-8">
+            <h3 class="nombreCompleto">Jorge Agustin Barroso</h3>
+        </div>
+        <div class="col-sm-2">
+            <a href="https://www.instagram.com/agustin_barroso919/?hl=es" title="facebook"><img src="https://img.icons8.com/color/48/000000/instagram-new--v1.png" width="30px" height="30px"></a>
+            <a href="https://www.facebook.com/agustin.barrosl/" title="instagram"><img src="https://img.icons8.com/color/48/000000/facebook.png" width="30px" height="30px"></a>
+            <button type="button" class="btn btn-outline-success" (click)="authService.pregunta()" id="logout" *ngIf="authService.logIn">Logout</button>
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal" *ngIf="!authService.logIn">Login</button>
+        </div>
+    </div>
+</div>
+
